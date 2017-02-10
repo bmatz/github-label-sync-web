@@ -2,6 +2,9 @@
   "name": "cockpit",
   "version": "1.0.0",
   "main": "index.js",
+  "scripts": {
+    "start": "lite-server -c bs-config.json"
+  },
   "repository": {},
   "author": "bernhard@trigo.at",
   "license": "MIT",
@@ -11,6 +14,7 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.9.0",
+    "lite-server": "^2.2.2",
     "webpack": "^2.2.1"
   },
   "dependencies": {

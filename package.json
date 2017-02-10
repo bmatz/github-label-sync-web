@@ -1,0 +1,34 @@
+{
+  "name": "cockpit",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {},
+  "author": "bernhard@trigo.at",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^3.15.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.9.0",
+    "webpack": "^2.2.1"
+  },
+  "dependencies": {
+    "classnames": "^2.2.5",
+    "debug": "^2.6.0",
+    "ramda": "^0.23.0",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-redux": "^5.0.2",
+    "react-router5": "^4.0.1",
+    "react-tap-event-plugin": "^2.0.1",
+    "redux": "^3.6.0",
+    "redux-devtools": "^3.3.2",
+    "redux-logger": "^2.8.1",
+    "redux-router5": "^4.2.3",
+    "redux-thunk": "^2.2.0",
+    "reselect": "^2.5.4",
+    "router5": "^4.4.1",
+    "whatwg-fetch": "^2.0.2"
+  }
+}

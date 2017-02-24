@@ -3,23 +3,36 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "lite-server -c bs-config.json"
+    "start": "lite-server -c bs-config.json",
+    "begin": "node --harmony-async-await index.js"
   },
   "repository": {},
   "author": "bernhard@trigo.at",
   "license": "MIT",
   "devDependencies": {
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.23.0",
     "eslint": "^3.15.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.9.0",
-    "lite-server": "^2.2.2",
     "webpack": "^2.2.1"
   },
   "dependencies": {
+    "autoprefixer": "^6.7.3",
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.3.2",
+    "babel-plugin-transform-class-properties": "^6.23.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-plugin-transform-regenerator": "^6.22.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "classnames": "^2.2.5",
     "debug": "^2.6.0",
+    "eslint-loader": "^1.6.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "github-label-sync-api": "^1.3.0",
+    "postcss-flexbugs-fixes": "^2.1.0",
     "ramda": "^0.23.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
@@ -33,6 +46,7 @@
     "redux-thunk": "^2.2.0",
     "reselect": "^2.5.4",
     "router5": "^4.4.1",
+    "webpack-dev-server": "^2.4.1",
     "whatwg-fetch": "^2.0.2"
   }
 }

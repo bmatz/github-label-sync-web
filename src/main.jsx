@@ -1,4 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ButtonCounter from './components/hello-world';
 
-ReactDOM.render(<h1>Hello, world!</h1>, document.getElementById('app'));
+ReactDOM.render(
+	<ButtonCounter />, document.querySelector('.app'));

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ButtonCounter from './components/hello-world';
+import App from './components/App';
 
 ReactDOM.render(
-	<ButtonCounter />, document.getElementById('app'),
+	<App />, document.getElementById('app'),
 );

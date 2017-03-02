@@ -1,9 +1,9 @@
-const api = require('github-label-sync-api');
+// const api = require('github-label-sync-api');
 
 // const dummytoken = 'dummytoken';
-const repositoryName = 'bmatz/github-label-sync-web';
+// const repositoryName = 'bmatz/github-label-sync-web';
 
-document.write("Webpack is doing its thing.");
+// document.write("Webpack is doing its thing.");
 // // get affiliated repositories
 
 // async function getRepos() {

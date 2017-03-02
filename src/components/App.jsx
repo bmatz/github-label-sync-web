@@ -1,22 +1,33 @@
 import React from 'react';
-import { Product } from './Product';
+import { Label } from './Label';
 
-class App extends React.Component {
+export class App extends React.Component {
 	constructor(props) {
 		super(props);
-		this.products = [
-			{ title: 'Holz Stuhl', description: 'Mein lieblings Stuhl' },
-			{ title: 'Plastik Stuhl', description: 'Ein Stuhl halt' },
-		];
+		this.handleRemove = this.handleRemove.bind(this);
+		this.state = {
+			labels: [
+				{ title: 'Label 1', description: 'Mein lieblings Laberl' },
+				{ title: 'Label 2', description: 'Ein Laberl halt' },
+				{},
+			],
+		};
+	}
+	handleRemove() {
+		this.setState({
+			labels: this.state.labels.splice(0, this.state.labels.length - 1),
+		});
 	}
 	render() {
 		return (
 			<div style={{ padding: '20px' }}>
-				<h1>Die Produkte</h1>
-				{this.products.map((p, i) => <Product title={p.title} description={p.description} nr={i} />)}
+				<h1>Die Labels</h1>
+				<button onClick={this.handleRemove}>Lösche letztes</button>
+				{this.state.labels.map((p, i) => <Label title={p.title} description={p.description} nr={i} />)}
 			</div>
 		);
 	}
 }
 
-export default App;
+// <button onClick={this.handleRemove.bind(this)}>Lösche letztes</button>
+// export default App;

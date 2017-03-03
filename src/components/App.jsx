@@ -8,9 +8,9 @@ export class App extends React.Component {
 		this.handleRemove = this.handleRemove.bind(this);
 		this.state = {
 			labels: [
-				{ title: 'Label 1', description: 'Mein lieblings Laberl' },
-				{ title: 'Label 2', description: 'Ein Laberl halt' },
-				{},
+				{ id: '123', title: 'Label 1', description: 'Mein lieblings Laberl' },
+				{ id: '124', title: 'Label 2', description: 'Ein Laberl halt' },
+				{ id: '125' },
 			],
 		};
 		this.handleLabelAdd = this.handleLabelAdd.bind(this);
@@ -23,7 +23,7 @@ export class App extends React.Component {
 
 	handleLabelAdd(newLabel) {
 		this.setState({
-			label: this.state.labels.concat(newLabel),
+			labels: this.state.labels.concat(newLabel),
 		});
 	}
 	render() {
@@ -32,7 +32,7 @@ export class App extends React.Component {
 				<h1>Die Labels</h1>
 				<AddLabelForm onLabelAdd={this.handleLabelAdd} />
 				<button onClick={this.handleRemove}>Lösche letztes</button>
-				{this.state.labels.map((p, i) => <Label title={p.title} description={p.description} nr={i} />)}
+				{this.state.labels.map((p, i) => <Label key={p.id} title={p.title} description={p.description} nr={i} />)}
 			</div>
 		);
 	}

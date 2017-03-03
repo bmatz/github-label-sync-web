@@ -1,14 +1,22 @@
-import React from 'react';
+import React, { PropTypes, Component } from 'react';
 
-export class Label extends React.Component {
-	static get defaultProps() {
-		return {
-			title: 'Keinen Titel',
-			description: 'Dieses Label hat keine Beschreibung',
-			watched: false,
-			category: 'warning',
-		};
-	}
+const { number, string, bool } = PropTypes;
+const propTypes = {
+	nr: number.isRequired,
+	title: string.isRequired,
+	description: string.isRequired,
+	category: string.isRequired,
+	watched: bool.isRequired,
+};
+
+const defaultProps = {
+	title: 'Keinen Titel',
+	description: 'Dieses Label hat keine Beschreibung',
+	watched: false,
+	category: 'warning',
+};
+
+export class Label extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -30,7 +38,8 @@ export class Label extends React.Component {
 				style={{ border: '1px solid grey',
 					padding: '20px',
 					margin: '20px 0 20px 0',
-				}} className="prod"
+				}}
+				className="prod"
 			>
 				<h2>{this.props.nr + 1}. {this.props.title}</h2>
 				<p>{this.props.description}</p>
@@ -44,10 +53,5 @@ export class Label extends React.Component {
 	}
 }
 
-Label.propTypes = {
-	nr: React.PropTypes.number.isRequired,
-	title: React.PropTypes.string.isRequired,
-	description: React.PropTypes.string.isRequired,
-	category: React.PropTypes.string.isRequired,
-	watched: React.PropTypes.bool.isRequired,
-};
+Label.propTypes = propTypes;
+Label.defaultProps = defaultProps;

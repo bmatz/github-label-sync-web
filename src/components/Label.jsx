@@ -5,12 +5,14 @@ export class Label extends React.Component {
 		return {
 			title: 'Keinen Titel',
 			description: 'Dieses Label hat keine Beschreibung',
+			watched: false,
+			category: 'warning',
 		};
 	}
 	constructor(props) {
 		super(props);
 		this.state = {
-			watched: false,
+			watched: props.watched,
 		};
 		this.handleWatchClick = this.handleWatchClick.bind(this);
 	}
@@ -32,6 +34,7 @@ export class Label extends React.Component {
 			>
 				<h2>{this.props.nr + 1}. {this.props.title}</h2>
 				<p>{this.props.description}</p>
+				<p>Category: {this.props.category}</p>
 				<p>
 					<button onClick={this.handleWatchClick}>{watched ? 'Unwatched' : 'Watch!'}</button>
 					{watched ? ' Du beobachtest das Label' : ''}
@@ -45,4 +48,6 @@ Label.propTypes = {
 	nr: React.PropTypes.number.isRequired,
 	title: React.PropTypes.string.isRequired,
 	description: React.PropTypes.string.isRequired,
+	category: React.PropTypes.string.isRequired,
+	watched: React.PropTypes.bool.isRequired,
 };

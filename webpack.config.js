@@ -105,6 +105,8 @@ const devServer = {
 const config = {
 	entry: {
 		app: ['./src/main.jsx'],
+		// tachyons: './node_modules/tachyons/css/tachyons.css',
+		// index: './src/css/index.css',
 	},
 	devtool: isProduction ? 'cheap-module-source-map' : 'eval',
 	output: {

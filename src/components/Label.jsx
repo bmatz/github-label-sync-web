@@ -1,12 +1,13 @@
 import React, { PropTypes, Component } from 'react';
 
-const { number, string, bool } = PropTypes;
+const { number, string, bool, func } = PropTypes;
 const propTypes = {
 	nr: number.isRequired,
 	title: string.isRequired,
 	description: string.isRequired,
 	category: string.isRequired,
 	watched: bool.isRequired,
+	onToggleWatched: func.isRequired,
 };
 
 const defaultProps = {
@@ -17,22 +18,19 @@ const defaultProps = {
 };
 
 export class Label extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			watched: props.watched,
-		};
-		this.handleWatchClick = this.handleWatchClick.bind(this);
-	}
-
-	handleWatchClick() {
-		this.setState({
-			watched: !this.state.watched,
-		});
-	}
-
+	// static get propTypes() {
+	// 	return {
+	// 		onToggleWatched: React.PropTypes.func.isRequired,
+	// 	};
+	// }
 	render() {
-		const watched = this.state.watched;
+		if (!this.props) {
+			return null;
+		}
+		const watched = this.props.watched;
+		const toggleWatch = () => {
+			this.props.onToggleWatched(this.props.nr);
+		};
 		return (
 			<div
 				style={{ border: '1px solid grey',
@@ -45,7 +43,7 @@ export class Label extends Component {
 				<p>{this.props.description}</p>
 				<p>Category: {this.props.category}</p>
 				<p>
-					<button onClick={this.handleWatchClick}>{watched ? 'Unwatched' : 'Watch!'}</button>
+					<button onClick={toggleWatch}>{watched ? 'Unwatched' : 'Watch!'}</button>
 					{watched ? ' Du beobachtest das Label' : ''}
 				</p>
 			</div>

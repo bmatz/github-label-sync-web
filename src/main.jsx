@@ -1,7 +1,16 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
-import { App } from './components/App';
+import React from 'react';
+
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+
+import { labelApp } from './components/reducers';
+import { ReduxApp } from './components/ReduxApp';
+
+const store = createStore(labelApp);
 
 ReactDOM.render(
-	<App />, document.getElementById('app'),
-);
+	<Provider store={store}>
+		<ReduxApp />
+	</Provider>,
+	document.getElementById('app'));

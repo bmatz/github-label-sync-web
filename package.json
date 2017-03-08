@@ -51,6 +51,7 @@
     "redux-thunk": "^2.2.0",
     "reselect": "^2.5.4",
     "router5": "^4.4.1",
+    "tachyons": "^4.6.2",
     "webpack-dev-server": "^2.4.1",
     "whatwg-fetch": "^2.0.2"
   }

@@ -1,58 +1,37 @@
-import React from 'react';
+import React, { PropTypes, Component } from 'react';
 
-export class AddLabelForm extends React.Component {
+const { string, bool } = PropTypes;
+const propTypes = {
+	title: string.isRequired,
+	description: string.isRequired,
+	category: string.isRequired,
+	watched: bool.isRequired,
+	onLabelAdd: React.PropTypes.func.isRequired,
+	onTitleChange: React.PropTypes.func.isRequired,
+	onDescriptionChange: React.PropTypes.func.isRequired,
+	onCategoryChange: React.PropTypes.func.isRequired,
+	onToggleWatched: React.PropTypes.func.isRequired,
+};
 
-	static get propTypes() {
-		return {
-			onLabelAdd: React.PropTypes.func.isRequired,
-		};
-	}
-	constructor(props) {
-		super(props);
-		this.state = {};
-
-		this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
-		this.handleTitleChange = this.handleTitleChange.bind(this);
-		this.handleWachedChange = this.handleWachedChange.bind(this);
-		this.handleCategoryChange = this.handleCategoryChange.bind(this);
-		this.handleLabelAdd = this.handleLabelAdd.bind(this);
-	}
-
-	handleDescriptionChange(event) {
-		this.setState({
-			description: event.target.value,
-		});
-	}
-
-	handleTitleChange(event) {
-		this.setState({
-			title: event.target.value,
-		});
-	}
-
-	handleWachedChange(event) {
-		this.setState({
-			watched: event.target.checked,
-		});
-	}
-
-	handleCategoryChange(event) {
-		this.setState({
-			category: event.target.value,
-		});
-	}
-
-	handleLabelAdd() {
-		this.props.onLabelAdd(this.state);
-		this.setState({
-			title: undefined,
-			state: undefined,
-			watched: false,
-			category: 'Warning',
-		});
-	}
+export class AddLabelForm extends Component {
+	// static get propTypes() {
+	// 	return {
+	// 		onLabelAdd: React.PropTypes.func.isRequired,
+	// 		onTitleChange: React.PropTypes.func.isRequired,
+	// 		onDescriptionChange: React.PropTypes.func.isRequired,
+	// 		onCategoryChange: React.PropTypes.func.isRequired,
+	// 		onToggleWatched: React.PropTypes.func.isRequired,
+	// 	};
+	// }
 
 	render() {
+		if (!this.props) {
+			return null;
+		}
+		const addLabel = () => {
+			const { title, description, category, watched } = this.props;
+			this.props.onLabelAdd({ title, description, category, watched });
+		};
 		return (
 			<div
 				style={{
@@ -64,26 +43,31 @@ export class AddLabelForm extends React.Component {
 				<h2>Hinzufügen eines Labels</h2>
 
 				<p>Titel:</p>
-				<input value={this.state.title} onChange={this.handleTitleChange} />
+				<input value={this.props.title} onChange={event => this.props.onTitleChange(event.target.value)} />
 
 				<p>Beschreibung:</p>
-				<input value={this.state.description} onChange={this.handleDescriptionChange} />
+				<input value={this.props.description} onChange={event => this.props.onDescriptionChange(event.target.value)} />
 
 				<p>Category:</p>
-				<select value={this.state.category} onChange={this.handleCategoryChange}>
+				<select value={this.props.category} onChange={event => this.props.onCategoryChange(event.target.value)}>
 					<option value="Warning">Warning</option>
 					<option value="Error">Error</option>
 					<option value="Info">Info</option>
 				</select>
 
 				<br />
-				<input type="checkbox" value={this.state.watched} onChange={this.handleWachedChange} />
+				<input
+					type="checkbox" value={this.props.watched}
+					onChange={event => this.props.onToggleWatched(event.target.checked)}
+				/>
 				Watched?
 
 				<br />
-				<button onClick={this.handleLabelAdd}>Label hinzufügen</button>
+				<button onClick={addLabel}>Label hinzufügen</button>
 			</div>
 		);
 	}
 
 }
+
+AddLabelForm.propTypes = propTypes;

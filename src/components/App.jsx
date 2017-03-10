@@ -1,22 +1,14 @@
-// import React, { PropTypes } from 'react';
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { ReduxAddLabelForm } from './ReduxAddLabelForm';
 import { ReduxLabel } from './ReduxLabel';
 
-// const { string } = PropTypes;
-// const propTypes = {
-// 	onLabelRemove: string.isRequired,
-// 	labels: string.isRequired,
-// };
+const { func, array } = PropTypes;
+const propTypes = {
+	onLabelRemove: func.isRequired,
+	labels: array.isRequired,
+};
 
 export class App extends React.Component {
-
-	static get propTypes() {
-		return {
-			onLabelRemove: React.PropTypes.func.isRequired,
-			labels: React.PropTypes.func.isRequired,
-		};
-	}
 
 	render() {
 		if (!this.props) {
@@ -26,11 +18,11 @@ export class App extends React.Component {
 			<div style={{ padding: '20px' }}>
 				<h1>Die Labels</h1>
 				<ReduxAddLabelForm />
-				<button onClick={() => this.props.onLabelRemove(0)}>Lösche letztes</button>
+				<button onClick={() => this.props.onLabelRemove(0)}>Lösche Erstes</button>
 				{this.props.labels.map((p, i) => <ReduxLabel key={p.id} title={p.title} description={p.description} nr={i} />)}
 			</div>
 		);
 	}
 }
 
-// App.propTypes = propTypes;
+App.propTypes = propTypes;

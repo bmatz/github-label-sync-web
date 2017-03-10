@@ -14,15 +14,6 @@ const propTypes = {
 };
 
 export class AddLabelForm extends Component {
-	// static get propTypes() {
-	// 	return {
-	// 		onLabelAdd: React.PropTypes.func.isRequired,
-	// 		onTitleChange: React.PropTypes.func.isRequired,
-	// 		onDescriptionChange: React.PropTypes.func.isRequired,
-	// 		onCategoryChange: React.PropTypes.func.isRequired,
-	// 		onToggleWatched: React.PropTypes.func.isRequired,
-	// 	};
-	// }
 
 	render() {
 		if (!this.props) {

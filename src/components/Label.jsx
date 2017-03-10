@@ -18,11 +18,7 @@ const defaultProps = {
 };
 
 export class Label extends Component {
-	// static get propTypes() {
-	// 	return {
-	// 		onToggleWatched: React.PropTypes.func.isRequired,
-	// 	};
-	// }
+
 	render() {
 		if (!this.props) {
 			return null;

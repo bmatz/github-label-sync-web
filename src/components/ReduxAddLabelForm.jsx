@@ -1,13 +1,15 @@
 import { connect } from 'react-redux';
-import { AddLabelForm } from './AddLabelForm';
+import AddLabelForm from './AddLabelForm';
 import * as ACTIONS from './actions';
 
 const mapStateToProps = (state) => {
+	// example for removing a prop
+	// const fu = { ...state.addLabelForm };
+	// delete fu.categories;
+	// return fu;
+
 	return {
-		title: state.addLabelForm.title,
-		description: state.addLabelForm.description,
-		watched: state.addLabelForm.watched,
-		category: state.addLabelForm.category,
+		...state.addLabelForm,
 	};
 };
 

@@ -12,7 +12,7 @@ const addLabelForm = (state = {}, action) => {
 		case ACTIONS.TOGGLE_WATCHED_FORM:
 			return Object.assign({}, state, { watched: !state.watched });
 		case ACTIONS.CLEAR_FORM:
-			return {};
+			return Object.assign({}, state, { title: '', description: '', watched: false, category: state.categories[0] });
 		default:
 			return state;
 	}
@@ -36,9 +36,9 @@ const labels = (state = [{ title: 'lab1', description: 'lab2' }], action) => {
 	}
 };
 
-const labelApp = combineReducers({
+const reducers = combineReducers({
 	addLabelForm,
 	labels,
 });
 
-export { labelApp };
+export default reducers;

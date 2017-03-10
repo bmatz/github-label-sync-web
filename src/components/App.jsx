@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import uuid from 'uuid/v4';
 import { ReduxAddLabelForm } from './ReduxAddLabelForm';
 import { ReduxLabel } from './ReduxLabel';
 
@@ -8,21 +9,15 @@ const propTypes = {
 	labels: array.isRequired,
 };
 
-export class App extends React.Component {
+const App = ({ labels, onLabelRemove }) => (
+	<div style={{ padding: '20px' }}>
+		<h1>Die Labels</h1>
+		<ReduxAddLabelForm />
+		<button onClick={() => onLabelRemove(0)}>Lösche Erstes</button>
+		{labels.map((l, i) => <ReduxLabel key={uuid()} title={l.title} description={l.description} nr={i} />)}
+	</div>
+);
 
-	render() {
-		if (!this.props) {
-			return null;
-		}
-		return (
-			<div style={{ padding: '20px' }}>
-				<h1>Die Labels</h1>
-				<ReduxAddLabelForm />
-				<button onClick={() => this.props.onLabelRemove(0)}>Lösche Erstes</button>
-				{this.props.labels.map((p, i) => <ReduxLabel key={p.id} title={p.title} description={p.description} nr={i} />)}
-			</div>
-		);
-	}
-}
 
 App.propTypes = propTypes;
+export default App;

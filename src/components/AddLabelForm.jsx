@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import uuid from 'uuid/v4';
+// import getrepo from '../helpers/getRepo';
 
 const { string, bool, arrayOf } = PropTypes;
 const propTypes = {
@@ -20,7 +21,7 @@ const defaultProps = {
 	description: '',
 	watched: false,
 };
-
+// console.log(getrepo);
 const AddLabelForm = ({ title, description, category, watched, categories, onLabelAdd,
 		onTitleChange, onDescriptionChange, onCategoryChange, onToggleWatched }) => {
 	const addLabel = () => {

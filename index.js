@@ -1,5 +1,5 @@
 // const api = require('github-label-sync-api');
-
+//
 // const dummytoken = 'dummytoken';
 // const repositoryName = 'bmatz/github-label-sync-web';
 

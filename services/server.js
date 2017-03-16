@@ -1,13 +1,15 @@
 const Hapi = require('hapi');
 const Good = require('good');
+const Hoek = require('hoek');
 // const Path = require('path');
 // const api = require('github-label-sync-api');
-// const hanlebars = require('hanlebars');
-const api = require('./api/api');
+const handlebars = require('handlebars');
+// const api = require('./api/api');
 
 const server = new Hapi.Server();
 server.connection({
 	port: 3000,
+	host: 'localhost',
 });
 
 // server.route({
@@ -22,36 +24,80 @@ server.connection({
 // 	method: 'GET',
 // 	path: '/{name}',
 // 	handler: (request, reply) => {
-// 		reply(`Hello, ${encodeURIComponent(request.params.name)} !`);
+// 		reply(`Hello, ${encodeURIComponent(request.params.name)}!`);
 // 	},
 // });
 
-
-// server.route({
-// 	method: 'GET',
-// 	path: '/hello/{user?}',
-// 	handler: (request, reply) => {
-// 		const user = request.params.user ? encodeURIComponent(request.params.user) : 'stranger';
-// 		reply(`Hello ${user} !`);
-// 	},
+// server.register(require('vision'), (err) => {
+// 	Hoek.assert(!err, err);
+//
+// 	server.views({
+// 		engines: {
+// 			html: handlebars,
+// 		},
+// 		relativeTo: __dirname,
+// 		path: 'templates',
+// 		helpersPath: 'templates/helpers',
+// 	});
+//
+// 	server.route({
+// 		method: 'GET',
+// 		path: '/hit',
+// 		handler: function (request, reply) {
+// 			reply.view('index.html');
+// 		},
+// 	});
 // });
 
-server.route({
-	method: 'GET',
-	path: '/api',
-	handler: (request, reply) => {
-		reply({
-			statusCode: 200,
-			message: 'Das Repo',
-			config: {
-				tags: ['api'],
+server.register(require('vision'), (err) => {
+	Hoek.assert(!err, err);
+
+	server.views({
+		engines: {
+			html: {
+				module: handlebars,
 			},
-		});
-	},
+		},
+		relativeTo: __dirname,
+		path: 'templates',
+		helpersPath: 'templates/helpers',
+	});
+
+	server.route({
+		method: 'GET',
+		path: '/hit',
+		handler: (request, reply) => {
+			reply.view('index.html');
+		},
+	});
 });
 
-server.register([
-{
+// server.start();
+
+// server.register(require('inert'), (err) => {
+// 	if (err) {
+// 		throw err;
+// 	}
+// 	server.route({
+// 		method: 'GET',
+// 		path: '/hello',
+// 		handler: (request, reply) => {
+// 			reply.file('./api/test.html');
+// 		},
+// 	});
+// });
+//
+// server.route({
+// 	method: 'GET',
+// 	path: '/lol',
+// 	handler: {
+// 		file: {
+// 			path: './api/lol.js',
+// 		},
+// 	},
+// });
+//
+server.register({
 	register: Good,
 	options: {
 		reporters: {
@@ -67,15 +113,13 @@ server.register([
 			}, 'stdout'],
 		},
 	},
-},
-], (err) => {
+}, (err) => {
 	if (err) {
-		throw err; // something bad happened loading the plugin
+		throw err;
 	}
-
 	server.start((errServer) => {
 		if (errServer) {
-			throw err;
+			throw errServer;
 		}
 		server.log('info', `Server running at: ${server.info.uri}`);
 	});

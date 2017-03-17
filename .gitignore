@@ -1,4 +1,4 @@
-/node_modules
+**/node_modules
 .githubtoken
-/dist
-yarn-error.log
+**/dist
+**/yarn-error.log

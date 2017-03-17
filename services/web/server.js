@@ -1,17 +1,43 @@
 const Hapi = require('hapi');
 const Good = require('good');
 const Hoek = require('hoek');
-const registerRoutes = require('./routes');
+const handlebars = require('handlebars');
+const inert = require('inert');
+const { version } = require('./package.json');
 
 const server = new Hapi.Server();
 server.connection({
-	port: 3010,
+	port: 3000,
 	host: 'localhost',
 });
+server.register(inert, () => {});
 
 server.register(require('vision'), (err) => {
 	Hoek.assert(!err, err);
-	registerRoutes(server);
+	server.views({
+		engines: {
+			html: handlebars,
+		},
+		relativeTo: __dirname,
+	});
+	server.route({
+		method: 'GET',
+		path: '/',
+		handler: (request, reply) => {
+			reply.view('src/index', { version });
+		},
+	});
+	server.route({
+		method: 'GET',
+		path: '/{param*}',
+		handler: {
+			directory: {
+				path: './dist',
+				redirectToSlash: true,
+				index: true,
+			},
+		},
+	});
 });
 
 server.register({

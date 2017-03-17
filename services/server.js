@@ -1,9 +1,10 @@
 const Hapi = require('hapi');
 const Good = require('good');
 const Hoek = require('hoek');
+const pug = require('pug');
 // const Path = require('path');
 // const api = require('github-label-sync-api');
-const handlebars = require('handlebars');
+// const handlebars = require('handlebars');
 // const api = require('./api/api');
 
 const server = new Hapi.Server();
@@ -54,8 +55,8 @@ server.register(require('vision'), (err) => {
 
 	server.views({
 		engines: {
-			html: {
-				module: handlebars,
+			pug: {
+				module: pug,
 			},
 		},
 		relativeTo: __dirname,
@@ -67,7 +68,7 @@ server.register(require('vision'), (err) => {
 		method: 'GET',
 		path: '/hit',
 		handler: (request, reply) => {
-			reply.view('index.html');
+			reply.view('index.pug');
 		},
 	});
 });

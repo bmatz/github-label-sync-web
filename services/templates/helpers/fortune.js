@@ -17,8 +17,7 @@ module.exports = () => {
 const api = require('github-label-sync-api');
 
 const repositoryName = 'bmatz/github-label-sync-web';
-const token = '3d8b9b8f78cadf7e2d99816b5df7c09f91d7498a';
-
+const token = 'bd0e0d0cb5516461030370631770a1d79f0fca52';
 
 // module.exports = () => {
 // 	return new Promise(async (resolve, reject) => {
@@ -33,14 +32,14 @@ const token = '3d8b9b8f78cadf7e2d99816b5df7c09f91d7498a';
 // 	});
 // };
 
-module.exports = () => {
-	return new Promise(async (resolve, reject) => {
-		try {
-			const labels = await api.getLabels(token, repositoryName);
-			console.log(labels);
-			resolve(labels);
-		} catch (err) {
-			reject(err);
-		}
-	});
-};
+// module.exports = () => {
+// 	return new Promise(async (resolve, reject) => {
+// 		try {
+// 			const labels = await api.getLabels(token, repositoryName);
+// 			console.log(labels);
+// 			resolve(labels);
+// 		} catch (err) {
+// 			reject(err);
+// 		}
+// 	});
+// };

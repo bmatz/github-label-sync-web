@@ -36,9 +36,23 @@ const labels = (state = [{ title: 'lab1', description: 'lab2' }], action) => {
 	}
 };
 
+const repos = (state = { loading: false, repos: [] }, action) => {
+	switch (action.type) {
+		case ACTIONS.REQUEST_AFFILIATED_REPOSITORIES:
+			return Object.assign({}, state, { loading: true });
+		case ACTIONS.AFFILIATED_REPOSITORIES_RESULT:
+			return Object.assign({}, state, { loading: false, repos: action.result });
+		case ACTIONS.AFFILIATED_REPOSITORIES_ERROR:
+			return Object.assing({}, state, { loading: false, repos: [], error: action.result });
+		default:
+			return state;
+	}
+};
+
 const reducers = combineReducers({
 	addLabelForm,
 	labels,
+	repos,
 });
 
 export default reducers;

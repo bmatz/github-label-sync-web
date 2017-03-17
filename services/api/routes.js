@@ -4,7 +4,7 @@ const config = require('./config');
 module.exports = (server) => {
 	server.route({
 		method: 'GET',
-		path: '/token',
+		path: '/repos',
 		handler: async (request, reply) => {
 			try {
 				const repositories = await api.getAffiliated(config.token);

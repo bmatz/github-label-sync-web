@@ -1,18 +1,17 @@
 import { connect } from 'react-redux';
 import App from './App';
-import * as ACTIONS from './actions';
 
 const mapStateToProps = (state) => {
 	return {
 		labels: state.labels,
+		repos: state.repos.repos,
+		loading: state.repos.loading,
 	};
 };
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		onLabelRemove: (index) => {
-			dispatch(ACTIONS.removeLabel(index));
-		},
+		dispatch,
 	};
 };
 

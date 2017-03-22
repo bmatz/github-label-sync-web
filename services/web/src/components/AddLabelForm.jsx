@@ -1,18 +1,15 @@
 import React, { PropTypes } from 'react';
-import uuid from 'uuid/v4';
+// import uuid from 'uuid/v4';
 // import getrepo from '../helpers/getRepo';
 
-const { string, bool, arrayOf } = PropTypes;
+const { string, bool } = PropTypes;
 const propTypes = {
 	title: string.isRequired,
 	description: string.isRequired,
-	category: string.isRequired,
 	watched: bool.isRequired,
-	categories: arrayOf(string).isRequired,
 	onLabelAdd: React.PropTypes.func.isRequired,
 	onTitleChange: React.PropTypes.func.isRequired,
 	onDescriptionChange: React.PropTypes.func.isRequired,
-	onCategoryChange: React.PropTypes.func.isRequired,
 	onToggleWatched: React.PropTypes.func.isRequired,
 };
 
@@ -22,12 +19,12 @@ const defaultProps = {
 	watched: false,
 };
 // console.log(getrepo);
-const AddLabelForm = ({ title, description, category, watched, categories, onLabelAdd,
-		onTitleChange, onDescriptionChange, onCategoryChange, onToggleWatched }) => {
+const AddLabelForm = ({ title, description, watched, onLabelAdd,
+		onTitleChange, onDescriptionChange, onToggleWatched }) => {
 	const addLabel = () => {
-		onLabelAdd({ title, description, category, watched });
+		onLabelAdd({ title, description, watched });
 	};
-	const options = (categories.map(cat => <option key={uuid()} value={cat}>{cat}</option>));
+
 	return (
 		<div
 			style={{
@@ -43,11 +40,6 @@ const AddLabelForm = ({ title, description, category, watched, categories, onLab
 
 			<p>Beschreibung:</p>
 			<input value={description} onChange={event => onDescriptionChange(event.target.value)} />
-
-			<p>Category:</p>
-			<select value={category} onChange={event => onCategoryChange(event.target.value)}>
-				{options}
-			</select>
 
 			<br />
 			<input

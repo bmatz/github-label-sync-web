@@ -1,36 +1,24 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
 
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose } from 'redux';
-import createLogger from 'redux-logger';
-import thunk from 'redux-thunk';
-
+// import { MainLayout, MissingPage, GreetingPage } from './components';
+import App from './components/App';
+import routes from './routes';
 import reducers from './components/reducers';
-import { ReduxApp } from './components/ReduxApp';
-
-const loggerMiddleware = createLogger();
-const categories = ['Warning', 'Error', 'Info'];
-const [warning] = categories;
-
-const state = {
-	addLabelForm: {
-		categories,
-		category: warning,
-	},
-};
-const store = createStore(
-	reducers,
-	state,
-	compose(
-		applyMiddleware(thunk, loggerMiddleware),
-		window.devToolsExtension ? window.devToolsExtension() : f => f,
-	),
-);
+import { ReactApplication } from './ReactApplication';
 
 ReactDOM.render(
-	<Provider store={store}>
-		<ReduxApp />
-	</Provider>,
+	<ReactApplication
+		reducers={reducers}
+		routes={routes}
+		defaultRoute="dashboard"
+		name="labelSync"
+	>
+		<App />
+	</ReactApplication>,
 	document.getElementById('app'),
 );
+
+// <Route path="*" component={MissingPage} />
+// <Route path="/listing" component={ReduxApp} />
+// <Route path="/greeting/:lastname/:firstname" component={GreetingPage} />

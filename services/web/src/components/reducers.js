@@ -1,4 +1,3 @@
-import { combineReducers } from 'redux';
 import * as ACTIONS from './actions';
 
 const addLabelForm = (state = {}, action) => {
@@ -7,12 +6,10 @@ const addLabelForm = (state = {}, action) => {
 			return Object.assign({}, state, { title: action.text });
 		case ACTIONS.CHANGE_DESCRIPTION_FORM:
 			return Object.assign({}, state, { description: action.text });
-		case ACTIONS.CHANGE_CATEGORY_FORM:
-			return Object.assign({}, state, { category: action.text });
 		case ACTIONS.TOGGLE_WATCHED_FORM:
 			return Object.assign({}, state, { watched: !state.watched });
 		case ACTIONS.CLEAR_FORM:
-			return Object.assign({}, state, { title: '', description: '', watched: false, category: state.categories[0] });
+			return Object.assign({}, state, { title: '', description: '', watched: false });
 		default:
 			return state;
 	}
@@ -49,10 +46,10 @@ const repos = (state = { loading: false, repos: [] }, action) => {
 	}
 };
 
-const reducers = combineReducers({
+const reducers = {
 	addLabelForm,
 	labels,
 	repos,
-});
+};
 
 export default reducers;

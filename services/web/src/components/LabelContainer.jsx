@@ -19,5 +19,5 @@ const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-const ReduxLabel = connect(mapStateToProps, mapDispatchToProps)(Label);
-export { ReduxLabel };
+const LabelContainer = connect(mapStateToProps, mapDispatchToProps)(Label);
+export default LabelContainer;

@@ -5,7 +5,6 @@ const propTypes = {
 	nr: number.isRequired,
 	title: string.isRequired,
 	description: string.isRequired,
-	category: string.isRequired,
 	watched: bool.isRequired,
 	onToggleWatched: func.isRequired,
 };
@@ -14,7 +13,6 @@ const defaultProps = {
 	title: 'Keinen Titel',
 	description: 'Dieses Label hat keine Beschreibung',
 	watched: false,
-	category: 'warning',
 };
 
 export class Label extends Component {
@@ -37,7 +35,6 @@ export class Label extends Component {
 			>
 				<h2>{this.props.nr + 1}. {this.props.title}</h2>
 				<p>{this.props.description}</p>
-				<p>Category: {this.props.category}</p>
 				<p>
 					<button onClick={toggleWatch}>{watched ? 'Unwatched' : 'Watch!'}</button>
 					{watched ? ' Du beobachtest das Label' : ''}

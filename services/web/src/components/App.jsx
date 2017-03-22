@@ -1,35 +1,28 @@
 import React, { PropTypes } from 'react';
-import uuid from 'uuid/v4';
-import { ReduxAddLabelForm } from './ReduxAddLabelForm';
-import { ReduxLabel } from './ReduxLabel';
-import { getRepos, removeLabel } from './actions';
+import { connect } from 'react-redux';
+import { routeNodeSelector } from 'redux-router5';
+import ContentContainer from './ContentContainer';
+import Navigation from './Navigation';
 
-const { func, array, bool } = PropTypes;
+const { object } = PropTypes;
+
 const propTypes = {
-	labels: array.isRequired,
-	dispatch: func.isRequired,
-	repos: array.isRequired,
-	loading: bool.isRequired,
-};
-const defaultProps = {
-	repos: [],
+	route: object.isRequired,
 };
 
-const App = ({ labels, dispatch, repos, loading }) => (
-	<div style={{ padding: '20px' }}>
-		<h1>Die Labels</h1>
-		<button onClick={() => { dispatch(getRepos()); }}>{ loading ? 'Bitte warten...' : 'Repos Laden'}</button>
-		<ul>
-			{repos.map(repo => <li key={uuid()}>{repo.full_name}</li>)}
-		</ul>
-		<ReduxAddLabelForm />
-		<button onClick={() => dispatch(removeLabel(0))}>Lösche Erstes</button>
-		{labels.map((l, i) => <ReduxLabel key={uuid()} title={l.title} description={l.description} nr={i} />)}
+const App = ({ route }) => (
+	<div>
+		<Navigation />
+		<ContentContainer route={route} />
 	</div>
 );
 
-
+const mapStateToProps = (state) => {
+	const selector = routeNodeSelector('');
+	return {
+		...selector(state),
+	};
+};
 App.propTypes = propTypes;
-App.defaultProps = defaultProps;
 
-export default App;
+export default connect(mapStateToProps)(App);

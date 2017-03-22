@@ -34,5 +34,5 @@ const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-const ReduxAddLabelForm = connect(mapStateToProps, mapDispatchToProps)(AddLabelForm);
-export { ReduxAddLabelForm };
+const AddLabelFormContainer = connect(mapStateToProps, mapDispatchToProps)(AddLabelForm);
+export default AddLabelFormContainer;

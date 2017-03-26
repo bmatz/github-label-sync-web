@@ -15,24 +15,6 @@ const addLabelForm = (state = {}, action) => {
 	}
 };
 
-const labels = (state = [{ title: 'lab1', description: 'lab2' }], action) => {
-	switch (action.type) {
-		case ACTIONS.ADD_LABEL:
-			return state.concat(action.label);
-		case ACTIONS.REMOVE_LABEL:
-			return state.filter((p, i) => i !== action.index);
-		case ACTIONS.TOGGLE_WATCHED:
-			return state.map((p, i) => {
-				if (action.index === i) {
-					return Object.assign({}, p, { watched: !p.watched });
-				}
-				return p;
-			});
-		default:
-			return state;
-	}
-};
-
 const repos = (state = { loading: false, repos: [] }, action) => {
 	switch (action.type) {
 		case ACTIONS.REQUEST_AFFILIATED_REPOSITORIES:
@@ -46,10 +28,31 @@ const repos = (state = { loading: false, repos: [] }, action) => {
 	}
 };
 
+const labels = (state = { loading: false, labels: [] }, action) => {
+	switch (action.type) {
+		case ACTIONS.REQUEST_LABELS:
+			return Object.assign({}, state, { loading: true });
+		case ACTIONS.LABELS_RESULT:
+			return Object.assign({}, state, { loading: false, labels: action.result });
+		default:
+			return state;
+	}
+};
+
+const repo = (state = { repoName: '' }, action) => {
+	switch (action.type) {
+		case ACTIONS.SELECT_REPO:
+			return Object.assign({}, state, { repoName: action.repoName });
+		default:
+			return state;
+	}
+};
+
 const reducers = {
 	addLabelForm,
 	labels,
 	repos,
+	repo,
 };
 
 export default reducers;

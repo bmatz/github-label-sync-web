@@ -15,4 +15,17 @@ module.exports = (server) => {
 			}
 		},
 	});
+	server.route({
+		method: 'GET',
+		path: '/repos/{repositoryName}/labels',
+		handler: async (request, reply) => {
+			try {
+				const label = await api.getLabels(config.token, request.params.repositoryName);
+				reply(label);
+			} catch (err) {
+				console.error(err);
+				reply(err.toString()).code(500);
+			}
+		},
+	});
 };

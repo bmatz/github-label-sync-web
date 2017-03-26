@@ -3,30 +3,42 @@ import uuid from 'uuid/v4';
 import { connect } from 'react-redux';
 
 import AddLabelForm from './AddLabelFormContainer';
-import Label from './LabelContainer';
-import { getRepos, removeLabel } from './actions';
+import { getRepos, getLabels, selectRepo } from './actions';
 
-const { func, array, bool } = PropTypes;
+const { func, array, bool, string } = PropTypes;
 const propTypes = {
-	labels: array.isRequired,
 	dispatch: func.isRequired,
 	repos: array.isRequired,
 	loading: bool.isRequired,
+	labels: array.isRequired,
+	repositoryName: string,
 };
 const defaultProps = {
 	repos: [],
+	labels: [],
+	repositoryName: '',
 };
 
-const MainContainer = ({ labels, dispatch, repos, loading }) => (
+// {repos.map(repo => <option key={uuid()}>{repo.full_name}</option>)}
+const MainContainer = ({ labels, dispatch, repos, loading, repositoryName }) => (
 	<div style={{ padding: '20px' }}>
 		<h1>Die Labels</h1>
 		<button onClick={() => { dispatch(getRepos()); }}>{ loading ? 'Bitte warten...' : 'Repos Laden'}</button>
+		<select
+			onChange={(evt) => {
+				const repoName = evt.target.value;
+				dispatch(selectRepo(repoName));
+				dispatch(getLabels(repoName));
+			}}
+			value={repositoryName}
+		>
+			{repos.map(repo => <option key={uuid()} >{repo.full_name}</option>)}
+		</select>
+		<div>Selected Repository: {repositoryName}</div>
 		<ul>
-			{repos.map(repo => <li key={uuid()}>{repo.full_name}</li>)}
+			{labels.map(label => <li key={uuid()}>{label.name} / {label.color}</li>)}
 		</ul>
 		<AddLabelForm />
-		<button onClick={() => dispatch(removeLabel(0))}>Lösche Erstes</button>
-		{labels.map((l, i) => <Label key={uuid()} title={l.title} description={l.description} nr={i} />)}
 	</div>
 );
 
@@ -36,9 +48,10 @@ MainContainer.defaultProps = defaultProps;
 
 const mapStateToProps = (state) => {
 	return {
-		labels: state.labels,
 		repos: state.repos.repos,
 		loading: state.repos.loading,
+		labels: state.labels.labels,
+		repositoryName: (state.repo || {}).repoName,
 	};
 };
 

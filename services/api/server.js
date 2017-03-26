@@ -1,4 +1,5 @@
 const Hapi = require('hapi');
+const corsHeaders = require('hapi-cors-headers');
 const Good = require('good');
 const Hoek = require('hoek');
 const registerRoutes = require('./routes');
@@ -37,6 +38,7 @@ server.register({
 	if (err) {
 		throw err;
 	}
+	server.ext('onPreResponse', corsHeaders);
 	server.start((errServer) => {
 		if (errServer) {
 			throw errServer;

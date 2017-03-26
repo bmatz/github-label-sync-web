@@ -24,9 +24,6 @@ const mapDispatchToProps = (dispatch) => {
 		onCategoryChange: (text) => {
 			dispatch(ACTIONS.changeCategory(text));
 		},
-		onToggleWatched: () => {
-			dispatch(ACTIONS.toggleWatchedForm());
-		},
 		onLabelAdd: (label) => {
 			dispatch(ACTIONS.addLabel(label));
 			dispatch(ACTIONS.clearForm());

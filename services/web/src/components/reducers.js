@@ -1,20 +1,5 @@
 import * as ACTIONS from './actions';
 
-const addLabelForm = (state = {}, action) => {
-	switch (action.type) {
-		case ACTIONS.CHANGE_TITLE_FORM:
-			return Object.assign({}, state, { title: action.text });
-		case ACTIONS.CHANGE_DESCRIPTION_FORM:
-			return Object.assign({}, state, { description: action.text });
-		case ACTIONS.TOGGLE_WATCHED_FORM:
-			return Object.assign({}, state, { watched: !state.watched });
-		case ACTIONS.CLEAR_FORM:
-			return Object.assign({}, state, { title: '', description: '', watched: false });
-		default:
-			return state;
-	}
-};
-
 const repos = (state = { loading: false, repos: [] }, action) => {
 	switch (action.type) {
 		case ACTIONS.REQUEST_AFFILIATED_REPOSITORIES:
@@ -49,7 +34,6 @@ const repo = (state = { repoName: '' }, action) => {
 };
 
 const reducers = {
-	addLabelForm,
 	labels,
 	repos,
 	repo,

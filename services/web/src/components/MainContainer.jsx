@@ -20,8 +20,8 @@ const defaultProps = {
 
 // {repos.map(repo => <option key={uuid()}>{repo.full_name}</option>)}
 const MainContainer = ({ labels, dispatch, repos, loading, repositoryName }) => (
-	<div style={{ padding: '20px', marginRight: '50%' }}>
-		<h1>Die Labels</h1>
+	<div style={{ padding: '20px', marginRight: '50%', border: '2px dashed rgba(27,31,35,0.5)' }}>
+		<h1>Repo Auswahl 1</h1>
 		<button onClick={() => { dispatch(getRepos()); }}>{ loading ? 'Bitte warten...' : 'Repos Laden'}</button>
 		<select
 			onChange={(evt) => {

@@ -1,7 +1,10 @@
 import React, { PropTypes } from 'react';
 import uuid from 'uuid/v4';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
+import Flex from './Flex';
 
+import Label from './Label';
 import { getRepos, getLabels, selectRepo } from './actions';
 
 const { func, array, bool, string } = PropTypes;
@@ -18,9 +21,17 @@ const defaultProps = {
 	repositoryName: '',
 };
 
+const LabelWrapper = styled(Flex)`
+	flex-direction: column;
+`;
+const Wrapper = styled.div`
+	padding: 20px;
+	margin-right: 50%;
+	border: 2px dashed rgba(27,31,35,0.5);
+`;
 // {repos.map(repo => <option key={uuid()}>{repo.full_name}</option>)}
 const MainContainer = ({ labels, dispatch, repos, loading, repositoryName }) => (
-	<div style={{ padding: '20px', marginRight: '50%', border: '2px dashed rgba(27,31,35,0.5)' }}>
+	<Wrapper>
 		<h1>Repo Auswahl 1</h1>
 		<button onClick={() => { dispatch(getRepos()); }}>{ loading ? 'Bitte warten...' : 'Repos Laden'}</button>
 		<select
@@ -34,34 +45,10 @@ const MainContainer = ({ labels, dispatch, repos, loading, repositoryName }) => 
 			{repos.map(repo => <option key={uuid()} >{repo.full_name}</option>)}
 		</select>
 		<div>Selected Repository: {repositoryName}</div>
-		<ul>
-			{labels.map(label =>
-				<li
-					style={{
-						position: 'relative',
-						display: 'table-row',
-						listStyle: 'none',
-					}} key={uuid()}
-				><a
-					style={{
-						border: '1px solid black',
-						display: 'inline-block',
-						padding: '0 10px',
-						marginRight: '5px',
-						fontSize: '16px',
-						fontWeight: 600,
-						lineHeight: 2,
-						textAlign: 'center',
-						borderRadius: '3px',
-						backgroundColor: `#${label.color}`,
-					}}
-				>
-					{label.name}
-				</a>
-				</li>)
-			}
-		</ul>
-	</div>
+		<LabelWrapper>
+			{labels.map(label => <Label key={uuid()} label={label} />)}
+		</LabelWrapper>
+	</Wrapper>
 );
 
 

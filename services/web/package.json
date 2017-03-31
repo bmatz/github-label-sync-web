@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node server.js",
     "start:dev": "webpack-dev-server --open",
+	"start:dev:silent": "webpack-dev-server",
     "compile": "cross-env NODE_ENV=production webpack --progress --profile --colors"
   },
   "repository": {},
@@ -59,6 +60,7 @@
     "reselect": "^2.5.4",
     "router5": "^4.4.1",
     "router5.helpers": "^1.2.0",
+    "styled-components": "^1.4.4",
     "tachyons": "^4.6.2",
     "uuid": "^3.0.1",
     "vision": "^4.1.1",

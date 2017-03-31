@@ -82,7 +82,7 @@ if (isProduction) {
 const devServer = {
 	hot: true,
 	inline: true,
-	open: true,
+	open: false,
 	// progress: true,
 	host: process.env.WEBPACK_HOST || '0.0.0.0',
 	port: 5000,

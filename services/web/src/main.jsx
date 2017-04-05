@@ -11,7 +11,7 @@ ReactDOM.render(
 	<ReactApplication
 		reducers={reducers}
 		routes={routes}
-		defaultRoute="dashboard"
+		defaultRoute="greeting"
 		name="labelSync"
 	>
 		<App />

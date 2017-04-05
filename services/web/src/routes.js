@@ -4,7 +4,7 @@ export default [
 		path: '/labels/add',
 	}, {
 		name: 'greeting',
-		path: '/greeting/:firstname/:lastname',
+		path: '/greeting/',
 	}, {
 		name: 'fu',
 		path: '/fu',

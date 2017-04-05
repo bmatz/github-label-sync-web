@@ -53,12 +53,24 @@ const repoTarget = (state = { repoName: '', labels: [] }, action) => {
 	}
 };
 
+const saveToken = (state = { token: [] }, action) => {
+	switch (action.type) {
+		case ACTIONS.SAVE_TOKEN:
+			return Object.assign({}, state, { token: action.token });
+		default:
+			return state;
+	}
+};
+
+
 const reducers = {
 	labels,
 	labelsTarget,
 	repos,
 	repoSource,
 	repoTarget,
+	saveToken,
+	// loadToken,
 };
 
 export default reducers;

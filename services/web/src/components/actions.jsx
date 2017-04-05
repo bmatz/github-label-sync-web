@@ -14,6 +14,18 @@ export const LABELS_RESULT_TARGET = 'LABELS_RESULT_TARGET';
 export const SELECT_REPO_SOURCE = 'SELECT_REPO_SOURCE';
 export const SELECT_REPO_TARGET = 'SELECT_REPO_TARGET';
 
+export const SAVE_TOKEN = 'SAVE_TOKEN';
+export const LOAD_TOKEN = 'SAVE_TOKEN';
+
+// TOKEN als cookie
+export function saveToken(token) {
+	return { type: SAVE_TOKEN, token };
+}
+
+export function loadToken(token) {
+	return { type: LOAD_TOKEN, token };
+}
+
 export function selectRepoSource(repoName) {
 	return { type: SELECT_REPO_SOURCE, repoName };
 }

@@ -1,22 +1,23 @@
 import React, { PropTypes } from 'react';
-// import uuid from 'uuid/v4';
 import { connect } from 'react-redux';
-// import styled from 'styled-components';
+import styled from 'styled-components';
 import Repo from './Repo';
-import { selectRepoSource, selectRepoTarget, getLabels } from './actions';
-// import Flex from './Flex';
+import TokenComponent from './TokenComponent';
+import { selectRepoSource, selectRepoTarget, getLabels, getRepos as loadRepos } from './actions';
+import Flex from './Flex';
 
-// import Label from './Label';
-// import { getRepos, getLabels, selectRepo } from './actions';
-
-const { object, func } = PropTypes;
+const { object, func, array, bool } = PropTypes;
 const propTypes = {
 	repoSource: object.isRequired,
 	repoTarget: object.isRequired,
 	onSelectSource: func,
 	onSelectTarget: func,
+	repos: array.isRequired,
+	loading: bool.isRequired,
+	getRepos: func.isRequired,
 };
 const defaultProps = {
+	repos: [],
 	repoSource: {
 		labels: [],
 	},
@@ -25,21 +26,30 @@ const defaultProps = {
 	},
 	onSelectSource: () => {},
 	onSelectTarget: () => {},
+	getRepos: () => {},
 };
-// console.log('REPOOOOSOURCEEEEE: ', repoSource);
-const MainContainer = ({ repoSource, repoTarget, onSelectSource, onSelectTarget }) => (
+
+const Wrapper = styled(Flex)`
+	flex-direction: row;
+`;
+
+const MainContainer = ({ repoSource, repoTarget, onSelectSource, onSelectTarget, repos, loading, getRepos }) => (
 	<div>
-		<Repo repo={repoSource} type="source" onSelect={onSelectSource} />
-		<Repo repo={repoTarget} type="target" onSelect={onSelectTarget} />
+		<TokenComponent />
+		<Wrapper>
+			<Repo repo={repoSource} onSelect={onSelectSource} repos={repos} loading={loading} getRepos={getRepos} />
+			<Repo repo={repoTarget} onSelect={onSelectTarget} repos={repos} loading={loading} getRepos={getRepos} />
+		</Wrapper>
 	</div>
 	);
 
 MainContainer.propTypes = propTypes;
 MainContainer.defaultProps = defaultProps;
 
-// console.log('STAAAAAAAAAAATE: ', state);
 const mapStateToProps = (state) => {
 	return {
+		repos: state.repos.repos,
+		loading: state.repos.loading,
 		repoSource: state.repoSource,
 		repoTarget: state.repoTarget,
 	};
@@ -55,6 +65,9 @@ const mapDispatchToProps = (dispatch) => {
 		onSelectTarget: (target) => {
 			dispatch(selectRepoTarget(target));
 			dispatch(getLabels(target, 'target'));
+		},
+		getRepos: () => {
+			dispatch(loadRepos());
 		},
 	};
 };

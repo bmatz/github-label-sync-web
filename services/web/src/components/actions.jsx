@@ -6,12 +6,22 @@ export const AFFILIATED_REPOSITORIES_ERROR = 'AFFILIATED_REPOSITORIES_ERROR';
 
 export const REQUEST_LABELS = 'REQUEST_LABELS';
 export const LABELS_RESULT = 'LABELS_RESULT';
+export const TARGET_LABELS_RESULT = 'TARGET_LABELS_RESULT';
 
-export const SELECT_REPO = 'SELECT_REPO';
+export const REQUEST_LABELS_TARGET = 'REQUEST_LABELS_TARGET';
+export const LABELS_RESULT_TARGET = 'LABELS_RESULT_TARGET';
 
-export function selectRepo(repoName) {
-	return { type: SELECT_REPO, repoName };
+export const SELECT_REPO_SOURCE = 'SELECT_REPO_SOURCE';
+export const SELECT_REPO_TARGET = 'SELECT_REPO_TARGET';
+
+export function selectRepoSource(repoName) {
+	return { type: SELECT_REPO_SOURCE, repoName };
 }
+
+export function selectRepoTarget(repoName) {
+	return { type: SELECT_REPO_TARGET, repoName };
+}
+
 
 export function requestLabels(request) {
 	return { type: REQUEST_LABELS, request };
@@ -21,11 +31,28 @@ export function labelsResponse(result) {
 	return { type: LABELS_RESULT, result };
 }
 
-export const getLabels = repositoryName => async (dispatch) => {
+export function targetLabelsResponse(result) {
+	return { type: TARGET_LABELS_RESULT, result };
+}
+
+
+export function requestLabelsTarget(request) {
+	return { type: REQUEST_LABELS_TARGET, request };
+}
+
+export function labelsResponseTarget(result) {
+	return { type: LABELS_RESULT_TARGET, result };
+}
+
+export const getLabels = (repositoryName, repoType) => async (dispatch) => {
 	try {
 		dispatch(requestLabels());
 		const labels = await fetch(`repos/${encodeURIComponent(repositoryName)}/labels`);
-		dispatch(labelsResponse(labels));
+		if (repoType === 'source') {
+			dispatch(labelsResponse(labels));
+		} else {
+			dispatch(targetLabelsResponse(labels));
+		}
 	} catch (err) {
 		dispatch(labelsResponse(err));
 	}

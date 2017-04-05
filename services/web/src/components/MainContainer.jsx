@@ -1,72 +1,61 @@
 import React, { PropTypes } from 'react';
-import uuid from 'uuid/v4';
+// import uuid from 'uuid/v4';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
-import Flex from './Flex';
+// import styled from 'styled-components';
+import Repo from './Repo';
+import { selectRepoSource, selectRepoTarget, getLabels } from './actions';
+// import Flex from './Flex';
 
-import Label from './Label';
-import { getRepos, getLabels, selectRepo } from './actions';
+// import Label from './Label';
+// import { getRepos, getLabels, selectRepo } from './actions';
 
-const { func, array, bool, string } = PropTypes;
+const { object, func } = PropTypes;
 const propTypes = {
-	dispatch: func.isRequired,
-	repos: array.isRequired,
-	loading: bool.isRequired,
-	labels: array.isRequired,
-	repositoryName: string,
+	repoSource: object.isRequired,
+	repoTarget: object.isRequired,
+	onSelectSource: func,
+	onSelectTarget: func,
 };
 const defaultProps = {
-	repos: [],
-	labels: [],
-	repositoryName: '',
+	repoSource: {
+		labels: [],
+	},
+	repoTarget: {
+		labels: [],
+	},
+	onSelectSource: () => {},
+	onSelectTarget: () => {},
 };
-
-const LabelWrapper = styled(Flex)`
-	flex-direction: column;
-`;
-const Wrapper = styled.div`
-	padding: 20px;
-	margin-right: 50%;
-	border: 2px dashed rgba(27,31,35,0.5);
-`;
-// {repos.map(repo => <option key={uuid()}>{repo.full_name}</option>)}
-const MainContainer = ({ labels, dispatch, repos, loading, repositoryName }) => (
-	<Wrapper>
-		<h1>Repo Auswahl 1</h1>
-		<button onClick={() => { dispatch(getRepos()); }}>{ loading ? 'Bitte warten...' : 'Repos Laden'}</button>
-		<select
-			onChange={(evt) => {
-				const repoName = evt.target.value;
-				dispatch(selectRepo(repoName));
-				dispatch(getLabels(repoName));
-			}}
-			value={repositoryName}
-		>
-			{repos.map(repo => <option key={uuid()} >{repo.full_name}</option>)}
-		</select>
-		<div>Selected Repository: {repositoryName}</div>
-		<LabelWrapper>
-			{labels.map(label => <Label key={uuid()} label={label} />)}
-		</LabelWrapper>
-	</Wrapper>
-);
-
+// console.log('REPOOOOSOURCEEEEE: ', repoSource);
+const MainContainer = ({ repoSource, repoTarget, onSelectSource, onSelectTarget }) => (
+	<div>
+		<Repo repo={repoSource} type="source" onSelect={onSelectSource} />
+		<Repo repo={repoTarget} type="target" onSelect={onSelectTarget} />
+	</div>
+	);
 
 MainContainer.propTypes = propTypes;
 MainContainer.defaultProps = defaultProps;
 
+// console.log('STAAAAAAAAAAATE: ', state);
 const mapStateToProps = (state) => {
 	return {
-		repos: state.repos.repos,
-		loading: state.repos.loading,
-		labels: state.labels.labels,
-		repositoryName: (state.repo || {}).repoName,
+		repoSource: state.repoSource,
+		repoTarget: state.repoTarget,
 	};
 };
 
 const mapDispatchToProps = (dispatch) => {
 	return {
 		dispatch,
+		onSelectSource: (source) => {
+			dispatch(selectRepoSource(source));
+			dispatch(getLabels(source, 'source'));
+		},
+		onSelectTarget: (target) => {
+			dispatch(selectRepoTarget(target));
+			dispatch(getLabels(target, 'target'));
+		},
 	};
 };
 

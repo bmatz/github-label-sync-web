@@ -17,17 +17,37 @@ const labels = (state = { loading: false, labels: [] }, action) => {
 	switch (action.type) {
 		case ACTIONS.REQUEST_LABELS:
 			return Object.assign({}, state, { loading: true });
-		case ACTIONS.LABELS_RESULT:
-			return Object.assign({}, state, { loading: false, labels: action.result });
 		default:
 			return state;
 	}
 };
 
-const repo = (state = { repoName: '' }, action) => {
+const labelsTarget = (state = { loading: false, labels: [] }, action) => {
 	switch (action.type) {
-		case ACTIONS.SELECT_REPO:
+		case ACTIONS.REQUEST_LABELS:
+			return Object.assign({}, state, { loading: true });
+		default:
+			return state;
+	}
+};
+
+const repoSource = (state = { repoName: '', labels: [] }, action) => {
+	switch (action.type) {
+		case ACTIONS.SELECT_REPO_SOURCE:
 			return Object.assign({}, state, { repoName: action.repoName });
+		case ACTIONS.LABELS_RESULT:
+			return Object.assign({}, state, { labels: action.result });
+		default:
+			return state;
+	}
+};
+
+const repoTarget = (state = { repoName: '', labels: [] }, action) => {
+	switch (action.type) {
+		case ACTIONS.SELECT_REPO_TARGET:
+			return Object.assign({}, state, { repoName: action.repoName });
+		case ACTIONS.TARGET_LABELS_RESULT:
+			return Object.assign({}, state, { labels: action.result });
 		default:
 			return state;
 	}
@@ -35,8 +55,10 @@ const repo = (state = { repoName: '' }, action) => {
 
 const reducers = {
 	labels,
+	labelsTarget,
 	repos,
-	repo,
+	repoSource,
+	repoTarget,
 };
 
 export default reducers;

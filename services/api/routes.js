@@ -28,4 +28,32 @@ module.exports = (server) => {
 			}
 		},
 	});
+
+	server.route({
+		method: 'POST',
+		path: '/repos/{repositoryName}/labels',
+		handler: async (request, reply) => {
+			try {
+				const moveLabel = await api.createLabel(config.token, request.params.repositoryName, {
+					name: request.payload.name,
+					color: request.payload.color,
+				});
+				reply(moveLabel);
+			} catch (err) {
+				console.error(err);
+				reply(err.toString()).code(500);
+			}
+		},
+	});
 };
+
+// async function createLabel() {
+// 	try {
+// 		await api.createLabel(config.token, repositoryName, {
+// 			name: 'TestLabel',
+// 			color: 'ff0011',
+// 		});
+// 	} catch (e) {
+// 		console.log(e);
+// 	}
+// }

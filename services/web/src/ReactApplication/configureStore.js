@@ -1,5 +1,5 @@
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
-import createLogger from 'redux-logger';
+// import createLogger from 'redux-logger';
 import thunk from 'redux-thunk';
 import uuidv4 from 'uuid/v4';
 import { router5Middleware, router5Reducer } from 'redux-router5';
@@ -11,7 +11,7 @@ export default (reducers = {}, initialState = {}, additionalMiddlewares = [], ro
 			name,
 		}) : compose;
 
-	const loggerMiddleware = createLogger();
+	// const loggerMiddleware = createLogger();
 	let reducer;
 	if (router) {
 		reducer = combineReducers({
@@ -21,7 +21,8 @@ export default (reducers = {}, initialState = {}, additionalMiddlewares = [], ro
 	} else {
 		reducer = combineReducers(reducers);
 	}
-	const middlewares = [loggerMiddleware, thunk, ...additionalMiddlewares];
+	const middlewares = [thunk, ...additionalMiddlewares];
+	// const middlewares = [loggerMiddleware, thunk, ...additionalMiddlewares];
 	if (router) {
 		middlewares.push(router5Middleware(router));
 	}

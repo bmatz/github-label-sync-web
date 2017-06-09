@@ -13,6 +13,17 @@ const repos = (state = { loading: false, repos: [] }, action) => {
 	}
 };
 
+const moveLabel = (state = { move: false, label: {} }, action) => {
+	switch (action.type) {
+		case ACTIONS.MOVE_LABEL_BEFOR:
+			return Object.assign({}, state, { move: true });
+		case ACTIONS.MOVE_LABEL_AFTER:
+			return Object.assign({}, state, { move: false, label: action.result });
+		default:
+			return state;
+	}
+};
+
 const labels = (state = { loading: false, labels: [] }, action) => {
 	switch (action.type) {
 		case ACTIONS.REQUEST_LABELS:
@@ -70,6 +81,7 @@ const reducers = {
 	repoSource,
 	repoTarget,
 	saveToken,
+	moveLabel,
 	// loadToken,
 };
 

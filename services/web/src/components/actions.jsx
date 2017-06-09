@@ -15,7 +15,34 @@ export const SELECT_REPO_SOURCE = 'SELECT_REPO_SOURCE';
 export const SELECT_REPO_TARGET = 'SELECT_REPO_TARGET';
 
 export const SAVE_TOKEN = 'SAVE_TOKEN';
-export const LOAD_TOKEN = 'SAVE_TOKEN';
+export const LOAD_TOKEN = 'LOAD_TOKEN';
+
+export const MOVE_LABEL_BEFOR = 'MOVE_LABEL_BEFOR';
+export const MOVE_LABEL_AFTER = 'MOVE_LABEL_AFTER';
+
+// export function moveLabel(label) {
+// 	return { type: MOVE_LABEL, label };
+// }
+
+export function moveLabelBefor() {
+	return { type: MOVE_LABEL_BEFOR };
+}
+
+export function moveLabelAfter(result) {
+	return { type: MOVE_LABEL_AFTER, result };
+}
+
+export const moveLabel = (repositoryName, label) => async (dispatch) => {
+	console.log(repositoryName);
+	try {
+		dispatch(moveLabelBefor());
+		await fetch(`repos/${encodeURIComponent(repositoryName)}/labels`, { method: 'POST', body: JSON.stringify(label) });
+		dispatch(moveLabelAfter(label));
+	} catch (err) {
+		dispatch(moveLabelAfter(err));
+	}
+};
+
 
 // TOKEN als cookie
 export function saveToken(token) {

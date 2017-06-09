@@ -3,18 +3,19 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import Repo from './Repo';
 import TokenComponent from './TokenComponent';
-import { selectRepoSource, selectRepoTarget, getLabels, getRepos as loadRepos } from './actions';
+import { selectRepoSource, selectRepoTarget, getLabels, getRepos as loadRepos, moveLabel as movingLabel } from './actions';
 import Flex from './Flex';
 
 const { object, func, array, bool } = PropTypes;
 const propTypes = {
 	repoSource: object.isRequired,
-	repoTarget: object.isRequired,
+	repoTarget: object,
 	onSelectSource: func,
 	onSelectTarget: func,
 	repos: array.isRequired,
 	loading: bool.isRequired,
 	getRepos: func.isRequired,
+	moveLabel: func.isRequired,
 };
 const defaultProps = {
 	repos: [],
@@ -27,18 +28,34 @@ const defaultProps = {
 	onSelectSource: () => {},
 	onSelectTarget: () => {},
 	getRepos: () => {},
+	moveLabel: () => {},
 };
 
 const Wrapper = styled(Flex)`
 	flex-direction: row;
 `;
 
-const MainContainer = ({ repoSource, repoTarget, onSelectSource, onSelectTarget, repos, loading, getRepos }) => (
+const MainContainer = ({ repoSource, repoTarget, onSelectSource, onSelectTarget, repos, loading, getRepos, moveLabel }) => (
 	<div>
 		<TokenComponent />
 		<Wrapper>
-			<Repo repo={repoSource} onSelect={onSelectSource} repos={repos} loading={loading} getRepos={getRepos} />
-			<Repo repo={repoTarget} onSelect={onSelectTarget} repos={repos} loading={loading} getRepos={getRepos} />
+			<Repo
+				repo={repoSource}
+				onSelect={onSelectSource}
+				repos={repos}
+				loading={loading}
+				getRepos={getRepos}
+				moveLabel={moveLabel}
+				repoTarget={repoTarget.repoName}
+			/>
+			<Repo
+				repo={repoTarget}
+				onSelect={onSelectTarget}
+				repos={repos}
+				loading={loading}
+				getRepos={getRepos}
+				moveLabel={moveLabel}
+			/>
 		</Wrapper>
 	</div>
 	);
@@ -68,6 +85,9 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		getRepos: () => {
 			dispatch(loadRepos());
+		},
+		moveLabel: (repoTarget, label) => {
+			dispatch(movingLabel(repoTarget, label));
 		},
 	};
 };
